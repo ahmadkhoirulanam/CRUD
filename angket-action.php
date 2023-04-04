@@ -4,9 +4,10 @@ include 'koneksi.php';
  if (isset($_POST["edit-user"])){
 	$id = $_POST['id'];
 	$nama = $_POST['nama'];
+	$asal = $_POST['asal'];
 
 	// Edit user's name and email
-	$sql = "UPDATE mahasiswa SET nama='$nama' WHERE id=$id";
+	$sql = "UPDATE mahasiswa SET nama='$nama', asal='$asal' WHERE id=$id";
 
 	if (mysqli_query($conn, $sql)) {
 		redirectto("");

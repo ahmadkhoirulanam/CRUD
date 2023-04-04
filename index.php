@@ -61,7 +61,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="asal" class="form-label">Asal Anda</label>
-                                                        <input type="text" class="form-control" id="asal" placeholder="tuliskan asal anda" value="<?php echo $row["asal"]; ?>">
+                                                        <input type="text" class="form-control" id="asal" placeholder="tuliskan asal anda" value="<?php echo $row["asal"]; ?>" name="asal">
                                                     </div>
                                                     <br>
 
