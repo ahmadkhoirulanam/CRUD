@@ -11,8 +11,7 @@
     }
 
     function baseurl($link=''){
-        //$baseurl="http://localhost/simekar/";
-        $baseurl="http://localhost/web4a/";
+        $baseurl="http://localhost/pertemuan1/";
         
         if(!empty($link)){
             $url=$baseurl.$link;

@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+<?php
+include 'koneksi.php'; ?>
 
 <head>
     <meta charset="utf-8">
@@ -9,8 +11,46 @@
 </head>
 
 <body>
-    <div class="container mt-4">
-        <h1>Hello, world!</h1>
+    <div class="container mt-5">
+        <h1>Daftar Mahasiswa Informatika</h1>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahmahasiswa">
+            Tambah Mahasiswa
+        </button>
+        <br>
+
+        <!-- Modal -->
+        <div class="modal fade" id="tambahmahasiswa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form method="post" action="<?php echo baseurl("aksi.php") ?>">
+                        <input type="hidden" class="form-control" id="id" aria-describedby="emailHelp" value="<?php echo $row["id"]; ?>" name="id">
+                        <div class="mb-3">
+                            <label for="nama class=" form-label">Nama Mahasiswa</label>
+                            <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" name="nama">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama class=" form-label">Asal Mahasiswa</label>
+                            <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" name="asal">
+                        </div>
+                        <br>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="tambah-user">Save changes</button>
+                        </div>
+                    </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <br>
         <table class="table table-bordered">
             <thead>
                 <tr class="bg-danger">
@@ -22,7 +62,7 @@
             </thead>
             <tbody>
                 <?php
-                include 'koneksi.php';
+
                 $sql = "SELECT * FROM mahasiswa";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
@@ -41,63 +81,67 @@
                                 <?php echo $row["asal"]; ?>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row["id"]; ?>">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit<?php echo $row["id"]; ?>">
                                     Edit
                                 </button>
-                                <div class="modal fade" id="exampleModal<?php echo $row["id"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="edit<?php echo $row["id"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Mahasiswa</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-
-                                                <form method="post" action="<?php echo baseurl("angket-action.php"); ?>">
-                                                    <input type="text" class="form-control" id="nama" placeholder="tuliskan nama anda" value="<?php echo $row["id"]; ?>" name="id">
+                                                <form method="post" action="<?php echo baseurl("aksi.php") ?>">
+                                                    <input type="hidden" class="form-control" id="id" aria-describedby="emailHelp" value="<?php echo $row["id"]; ?>" name="id">
                                                     <div class="mb-3">
-                                                        <label for="nama" class="form-label">Nama Anda</label>
-                                                        <input type="text" class="form-control" id="nama" placeholder="tuliskan nama anda" value="<?php echo $row["nama"]; ?>" name="nama">
+                                                        <label for="nama class=" form-label">Nama Mahasiswa</label>
+                                                        <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" value="<?php echo $row["nama"]; ?>" name="nama">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="asal" class="form-label">Asal Anda</label>
-                                                        <input type="text" class="form-control" id="asal" placeholder="tuliskan asal anda" value="<?php echo $row["asal"]; ?>" name="asal">
+                                                        <label for="nama class=" form-label">Asal Mahasiswa</label>
+                                                        <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" value="<?php echo $row["asal"]; ?>" name="asal">
                                                     </div>
                                                     <br>
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success" name="edit-user">Edit Pengguna</button>
+                                                        <button type="submit" class="btn btn-primary" name="edit-user">Save changes</button>
                                                     </div>
                                                 </form>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hapus<?php echo $row["id"]; ?>">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus<?php echo $row["id"]; ?>">
                                     Hapus
                                 </button>
                                 <div class="modal fade" id="hapus<?php echo $row["id"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Mahasiswa</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
+                                                <form method="post" action="<?php echo baseurl("aksi.php") ?>">
+                                                    <input type="text" class="form-control" id="id" aria-describedby="emailHelp" value="<?php echo $row["id"]; ?>" name="id">
 
-                                                <form method="post" action="<?php echo baseurl("angket-action.php"); ?>">
-                                                    <input type="text" class="form-control" id="nama" placeholder="tuliskan nama anda" value="<?php echo $row["id"]; ?>" name="id">
-                                                    
-
+                                                    <br>
+                                                    <h5>Apakah Anda Yakin Menghapus ?</h5>
+                                                    <br>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success" name="delete-user">Hapus Pengguna</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-danger" name="delete-user">Hapus</button>
                                                     </div>
+
                                                 </form>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
